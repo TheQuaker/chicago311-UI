@@ -1,0 +1,56 @@
+<div class="uk-container uk-margin-medium">
+  <div class="uk-grid uk-align-center">
+
+    <h2 class="uk-text-center">
+      Sign up to Chicago311
+    </h2>
+
+    <div *ngIf="errorMessage" class="uk-align-center uk-width-1-3@m uk-alert uk-alert-danger">
+      <button class="uk-alert-close" (click)="removeAlert()" uk-close></button>
+      <p>{{errorMessage}}</p>
+    </div>
+
+    <form [formGroup]="registerForm" class="uk-form uk-form-stacked uk-width-1-3@m uk-align-center uk-card uk-card-default uk-card-body">
+      <div class="uk-margin-small">
+        <label for="name" type="text" class="uk-form-label"><b>Name </b></label>
+        <input type="text" id="name" class="uk-input" placeholder="Enter your Name" formControlName="name"
+               [ngClass]="{'uk-form-danger': !registerForm.get('name').valid && registerForm.get('name').dirty}">
+      </div>
+      <div class="uk-margin-small">
+        <label for="email" type="text" class="uk-form-label"><b>Email </b></label>
+        <input type="text" id="email" class="uk-input" placeholder="Enter your Email" formControlName="email"
+        [ngClass]="{'uk-form-danger': !registerForm.get('email').valid && registerForm.get('email').dirty}">
+      </div>
+      <div class="uk-margin-small">
+        <label for="address" type="text" class="uk-form-label"><b>Address </b></label>
+        <input type="text" id="address" class="uk-input" placeholder="Enter your address" formControlName="address"
+               [ngClass]="{'uk-form-danger': !registerForm.get('address').valid && registerForm.get('address').dirty}">
+      </div>
+      <div class="uk-margin-small">
+        <label for="userName" type="text" class="uk-form-label"><b>Username </b></label>
+        <input type="text" id="userName" class="uk-input" placeholder="Pick a username" formControlName="username"
+               [ngClass]="{'uk-form-danger': !registerForm.get('username').valid && registerForm.get('username').dirty}">
+      </div>
+      <div class="uk-margin-small">
+        <label for="password" type="text" class="uk-form-label"><b>Password: </b></label>
+        <input type="password" id="password" class="uk-input" placeholder="Create a password"
+               formControlName="password"
+               [ngClass]="{'uk-form-danger': !registerForm.get('password').valid && registerForm.get('password').dirty}">
+      </div>
+      <div class=" uk-margin-small">
+        <label for="confirmPassword" type="text" class="uk-form-label"><b>Confirm Password: </b></label>
+        <input type="password" id="confirmPassword" class="uk-input" placeholder="Confirm your password"
+               formControlName="confirmPassword"
+               [ngClass]="{'uk-form-danger': !registerForm.get('confirmPassword').valid && registerForm.get('confirmPassword').dirty}">
+      </div>
+      <div class="uk-width-1-1@m uk-float-right uk-margin-small">
+        <button class="uk-button uk-button-primary uk-float-right" (click)="register()">Register</button>
+      </div>
+      <div class="uk-width-1-1@m uk-text-center uk-margin-small">
+        <span>Already have an account? </span>
+        <a routerLink="/login">Sign in here.</a>
+      </div>
+    </form>
+  </div>
+</div>
+{{registerForm.value | json}}

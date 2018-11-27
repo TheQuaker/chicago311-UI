@@ -1,0 +1,21 @@
+<div class="uk-grid" uk-grid>
+
+<p>Search for incidents by street and/or zip code</p>
+
+  <form [formGroup]="searchForm" class="uk-form uk-form-stacked">
+    <div class="uk-form-row uk-grid" uk-grid>
+      <div class="uk-form-controls">
+        <label class="uk-form-label" for="address">Address</label>
+        <input type="text" id="address" placeholder="Search by address" formControlName="address">
+      </div>
+      <div class="uk-form-controls">
+        <label class="uk-form-label" for="zipCode">Zip code</label>
+        <input type="text" id="zipCode" placeholder="Search by zip code" formControlName="address">
+      </div>
+      <div class="uk-form-controls">
+        <button class="uk-button-small uk-button-primary uk-margin-top">Search</button>
+      </div>
+    </div>
+  </form>
+
+</div>

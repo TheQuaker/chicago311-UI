@@ -1,0 +1,32 @@
+<div class="uk-container uk-margin-medium">
+  <div class="uk-grid uk-align-center">
+
+    <h2 class="uk-text-center">
+      Sign in to Chicago311
+    </h2>
+
+    <div *ngIf="errorMessage" class="uk-align-center uk-width-1-3@m uk-alert uk-alert-danger">
+      <button class="uk-alert-close" (click)="removeAlert()" uk-close></button>
+      <p>{{errorMessage}}</p>
+    </div>
+
+    <form [formGroup]="loginForm" class="uk-width-1-3@m uk-align-center uk-card uk-card-default uk-card-body">
+      <div class="uk-margin-small">
+        <label for="userName" type="text" class="uk-form-label"><b>Username: </b></label>
+        <input type="text" id="userName" class="uk-input" formControlName="userName">
+      </div>
+      <div class="uk-margin-small">
+        <label for="password" type="text" class="uk-form-label"><b>Password: </b></label>
+        <input type="password" id="password" class="uk-input" formControlName="password">
+      </div>
+      <div class="uk-float-right uk-margin-small">
+        <button class="uk-button uk-button-primary" (click)="login()">Sign in</button>
+      </div>
+    </form>
+    <div class="uk-width-1-3@m uk-align-center uk-card uk-card-default uk-card-body">
+      <span>Not a registered user? </span>
+      <a routerLink="/register">Sign up here.</a>
+    </div>
+  </div>
+</div>
+<!--{{loginForm.value | json}}-->
