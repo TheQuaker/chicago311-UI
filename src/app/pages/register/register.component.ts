@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {RegisterService} from '../../services/register.service';
+import {Router} from '@angular/router';
 
 
 @Component({
@@ -21,7 +23,9 @@ export class RegisterComponent implements OnInit {
   };
 
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private registerService: RegisterService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -34,7 +38,7 @@ export class RegisterComponent implements OnInit {
     this.registerForm.controls['confirmPassword'].updateValueAndValidity();
     if (this.registerForm.valid) {
       if (this.registerForm.get('password').value === this.registerForm.get('confirmPassword').value) {
-
+        this.postUser();
       } else {
         this.errorMessage = ' Passwords dont match. ';
         this.registerForm.markAsDirty();
@@ -54,6 +58,14 @@ export class RegisterComponent implements OnInit {
       }
       window.scroll(0, 0);
     }
+  }
+
+  postUser() {
+    this.registerService.registerUser(this.registerForm.value).subscribe(
+      _ => {},
+      error => this.errorMessage = <any> error,
+      () => this.router.navigate(['/home/dashboard'])
+    );
   }
 
   removeAlert() {
