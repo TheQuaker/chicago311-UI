@@ -61,9 +61,17 @@ export class RegisterComponent implements OnInit {
   }
 
   postUser() {
+    const newUser = Object.assign(this.registerForm.value);
+    // console.log(newUser);
+    // console.log(JSON.stringify(newUser));
+    console.log(JSON.stringify(this.registerForm.value));
+
     this.registerService.registerUser(this.registerForm.value).subscribe(
-      _ => {},
-      error => this.errorMessage = <any> error,
+      _ => {console.log('This is the stuff' + _); },
+      error => {
+        this.errorMessage = <any> error;
+        window.scroll(0, 0);
+      },
       () => this.router.navigate(['/home/dashboard'])
     );
   }
