@@ -14,7 +14,7 @@ export class RegisterComponent implements OnInit {
   public registerForm: FormGroup;
 
   formDefinition = {
-    name: ['', Validators.required],
+    // name: ['', Validators.required],
     address: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
     username: ['', Validators.required],

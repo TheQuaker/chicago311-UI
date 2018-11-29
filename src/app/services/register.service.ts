@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 
 import {environment} from '../../environments/environment';
 import {UserInfo} from '../domain/user-info';
 
-import {catchError} from 'rxjs/operators';
+import {catchError, map} from 'rxjs/operators';
 import {throwError} from 'rxjs';
 
 
@@ -15,15 +15,20 @@ import {throwError} from 'rxjs';
 export class RegisterService {
   private url = environment.API_END_POINT + '/users/signup';
 
-
-
   constructor(private http: HttpClient) {}
+
+  // private httpOption = {
+  //   headers: new HttpHeaders({
+  //     'responseType': 'text'
+  //   })
+  // };
 
   /** POST **/
   registerUser(user: UserInfo) {
-    return this.http.post<UserInfo>(this.url, user)
-      .pipe(
-        catchError(this.handleError)
+    return this.http.post<UserInfo>(this.url, user).pipe(
+        map(
+          // res => localStorage.setItem('id_token', res.token),
+          catchError(this.handleError))
       );
   }
 

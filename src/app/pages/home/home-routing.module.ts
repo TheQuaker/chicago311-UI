@@ -4,6 +4,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {HomeComponent} from './home.component';
 import {SearchForIncidentsComponent} from './search/search-for-incidents.component';
+import {AuthGuard} from '../../services/auth-guard.service';
 
 
 const routes: Routes = [
@@ -14,7 +15,8 @@ const routes: Routes = [
       {path: '', redirectTo: 'home/dashboard', pathMatch: 'full'},
       {path: 'home/dashboard', component: DashboardComponent},
       {path: 'home/searchForIncidents', component: SearchForIncidentsComponent}
-    ]
+    ],
+    canActivate: [AuthGuard]
   }
 ];
 

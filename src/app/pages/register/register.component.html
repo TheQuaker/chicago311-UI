@@ -11,11 +11,11 @@
     </div>
 
     <form [formGroup]="registerForm" class="uk-form uk-form-stacked uk-width-1-3@m uk-align-center uk-card uk-card-default uk-card-body">
-      <div class="uk-margin-small">
-        <label for="name" type="text" class="uk-form-label"><b>Name </b></label>
-        <input type="text" id="name" class="uk-input" placeholder="Enter your Name" formControlName="name"
-               [ngClass]="{'uk-form-danger': !registerForm.get('name').valid && registerForm.get('name').dirty}">
-      </div>
+      <!--<div class="uk-margin-small">-->
+        <!--<label for="name" type="text" class="uk-form-label"><b>Name </b></label>-->
+        <!--<input type="text" id="name" class="uk-input" placeholder="Enter your Name" formControlName="name"-->
+               <!--[ngClass]="{'uk-form-danger': !registerForm.get('name').valid && registerForm.get('name').dirty}">-->
+      <!--</div>-->
       <div class="uk-margin-small">
         <label for="email" type="text" class="uk-form-label"><b>Email </b></label>
         <input type="text" id="email" class="uk-input" placeholder="Enter your Email" formControlName="email"

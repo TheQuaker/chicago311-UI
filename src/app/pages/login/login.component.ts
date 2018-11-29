@@ -1,5 +1,8 @@
-import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+
+import {AuthenticationService} from '../../services/authentication.service';
 
 
 @Component({
@@ -16,7 +19,12 @@ export class LoginComponent implements OnInit {
     password: ['', Validators.required]
   };
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private loginService: AuthenticationService,
+    private router: Router
+  ) {
+  }
 
   ngOnInit(): void {
     this.loginForm = this.fb.group(this.formDefinition);
@@ -24,11 +32,19 @@ export class LoginComponent implements OnInit {
 
   login() {
     if (this.loginForm.valid) {
-
+      this.postCredentials();
     } else {
       this.errorMessage = ' Incorrect username or password. ';
       window.scroll(0, 0);
     }
+  }
+
+  postCredentials() {
+    this.loginService.login(this.loginForm.value).subscribe(
+      () => {
+        console.log('User is logged in');
+        this.router.navigateByUrl('home/dashboard');
+      });
   }
 
   removeAlert() {
