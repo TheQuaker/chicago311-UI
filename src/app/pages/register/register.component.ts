@@ -29,6 +29,9 @@ export class RegisterComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    if (localStorage.getItem('id_token')) {
+      this.router.navigate(['/home/dashboard']);
+    }
     this.registerForm = this.fb.group(this.formDefinition);
   }
 
@@ -67,7 +70,7 @@ export class RegisterComponent implements OnInit {
     console.log(JSON.stringify(this.registerForm.value));
 
     this.registerService.registerUser(this.registerForm.value).subscribe(
-      _ => {console.log('This is the stuff' + _); },
+      _ => {/*console.log('This is the stuff' + _);*/ },
       error => {
         this.errorMessage = <any> error;
         window.scroll(0, 0);

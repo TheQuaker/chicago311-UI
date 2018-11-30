@@ -3,10 +3,11 @@ import {Injectable} from '@angular/core';
 
 import {UserCredentials} from '../domain/user-credentials';
 import {environment} from '../../environments/environment';
-import {throwError} from 'rxjs';
+import {Observable, throwError} from 'rxjs';
 
 import * as moment from 'moment';
 import {catchError, map} from 'rxjs/operators';
+import {CurrentUser} from '../domain/current-user';
 
 
 @Injectable({
@@ -15,36 +16,45 @@ import {catchError, map} from 'rxjs/operators';
 
 export class AuthenticationService {
   private url = environment.API_END_POINT + '/user/signin';
+  public userName = null;
 
   constructor(private http: HttpClient) {
   }
 
-  login(credentials: UserCredentials) {
-    return this.http.post<UserCredentials>(this.url, credentials).pipe(
+  login(credentials: UserCredentials): Observable<CurrentUser> {
+    return this.http.post<CurrentUser>(this.url, credentials).pipe(
       map(
         res => {
           console.log('response ' + res);
           this.setSession(res);
+          return res;
         },
         catchError(this.handleError)
       ));
   }
 
-  private setSession(authResult) {
+  public setSession(authResult) {
     // const expiresAt = moment().add(authResult.expiresIn, 'second');
 
-    localStorage.setItem('id_token', authResult.token);
-    console.log('boomshakalaka');
+    localStorage.setItem('id_token', authResult.jwt);
+    localStorage.setItem('user_name', authResult.username);
+    this.userName = localStorage.getItem('user_name');
+    console.log();
     // localStorage.setItem('expires_at', JSON.stringify(expiresAt.valueOf()));
   }
 
   logout() {
     localStorage.removeItem('id_token');
-    localStorage.removeItem('expires_at');
+    localStorage.removeItem('user_name');
+    // localStorage.removeItem('expires_at');
   }
 
   public isLoggedIn() {
-    return moment().isBefore(this.getExpiration());
+    // return moment().isBefore(this.getExpiration());
+    if (localStorage.getItem('id_token')) { //
+      // logged in so return true
+      return true;
+    } else { return false; }
   }
 
   isLoggedOut() {

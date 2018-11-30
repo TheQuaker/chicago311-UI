@@ -27,6 +27,9 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (localStorage.getItem('id_token')) {
+      this.router.navigate(['/home/dashboard']);
+    }
     this.loginForm = this.fb.group(this.formDefinition);
   }
 

@@ -5,7 +5,9 @@ import {environment} from '../../environments/environment';
 import {UserInfo} from '../domain/user-info';
 
 import {catchError, map} from 'rxjs/operators';
-import {throwError} from 'rxjs';
+import {Observable, throwError} from 'rxjs';
+import {CurrentUser} from '../domain/current-user';
+import {AuthenticationService} from './authentication.service';
 
 
 @Injectable({
@@ -15,7 +17,10 @@ import {throwError} from 'rxjs';
 export class RegisterService {
   private url = environment.API_END_POINT + '/users/signup';
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private authService: AuthenticationService
+    ) {}
 
   // private httpOption = {
   //   headers: new HttpHeaders({
@@ -24,10 +29,16 @@ export class RegisterService {
   // };
 
   /** POST **/
-  registerUser(user: UserInfo) {
-    return this.http.post<UserInfo>(this.url, user).pipe(
+  registerUser(user: UserInfo): Observable<CurrentUser> {
+    return this.http.post<CurrentUser>(this.url, user).pipe(
         map(
-          // res => localStorage.setItem('id_token', res.token),
+          res => {
+            // localStorage.setItem('id_token', res.jwt);
+            // localStorage.setItem('user_name', res.username);
+            this.authService.setSession(res)
+            console.log('responce = ' + res);
+            return res;
+            },
           catchError(this.handleError))
       );
   }
