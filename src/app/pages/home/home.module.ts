@@ -4,6 +4,7 @@ import {DashboardComponent} from './dashboard/dashboard.component';
 import {HomeRoutingModule} from './home-routing.module';
 import {SearchForIncidentsComponent} from './search/search-for-incidents.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {ZipCodeTopRequestComponent} from './functions/zipCode-top-request.component';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
   ],
   declarations: [
     DashboardComponent,
-    SearchForIncidentsComponent
+    SearchForIncidentsComponent,
+    ZipCodeTopRequestComponent
   ]
 })
 

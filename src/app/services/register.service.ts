@@ -22,12 +22,6 @@ export class RegisterService {
     private authService: AuthenticationService
     ) {}
 
-  // private httpOption = {
-  //   headers: new HttpHeaders({
-  //     'responseType': 'text'
-  //   })
-  // };
-
   /** POST **/
   registerUser(user: UserInfo): Observable<CurrentUser> {
     return this.http.post<CurrentUser>(this.url, user).pipe(
@@ -35,7 +29,7 @@ export class RegisterService {
           res => {
             // localStorage.setItem('id_token', res.jwt);
             // localStorage.setItem('user_name', res.username);
-            this.authService.setSession(res)
+            this.authService.setSession(res);
             console.log('responce = ' + res);
             return res;
             },

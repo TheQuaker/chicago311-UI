@@ -1,7 +1,6 @@
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 
-import {UserCredentials} from '../domain/user-credentials';
 import {environment} from '../../environments/environment';
 import {Observable, throwError} from 'rxjs';
 
@@ -15,14 +14,14 @@ import {CurrentUser} from '../domain/current-user';
 })
 
 export class AuthenticationService {
-  private url = environment.API_END_POINT + '/user/signin';
+  private url = environment.API_END_POINT + '/users/signin';
   public userName = null;
 
   constructor(private http: HttpClient) {
   }
 
-  login(credentials: UserCredentials): Observable<CurrentUser> {
-    return this.http.post<CurrentUser>(this.url, credentials).pipe(
+  login(username: string, password: string): Observable<CurrentUser> {
+    return this.http.post<CurrentUser>(this.url, {username, password}).pipe(
       map(
         res => {
           console.log('response ' + res);

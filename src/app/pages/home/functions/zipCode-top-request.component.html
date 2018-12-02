@@ -1,0 +1,10 @@
+<p>My first request</p>
+<form [formGroup]="requestForm" class="uk-form">
+  <input id="date" type="date" formControlName="date">
+  <button (click)="print()">print</button>
+  <button (click)="submitRequest()">send</button>
+  <div *ngIf="results">
+  {{results[0][1]}}
+  {{results[4][2]}}
+  </div>
+</form>

@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
   }
 
   postCredentials() {
-    this.loginService.login(this.loginForm.value).subscribe(
+    this.loginService.login(this.loginForm.get('userName').value, this.loginForm.get('password').value).subscribe(
       () => {
         console.log('User is logged in');
         this.router.navigateByUrl('home/dashboard');
