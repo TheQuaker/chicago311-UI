@@ -1,25 +1,30 @@
 <div class="uk-container">
-<form [formGroup]="requestForm" class="uk-form">
-  <label class="uk-margin-right" for="date"><span>Find the most common service request per zipcode for a specific day. </span></label>
-  <input id="date" type="date" formControlName="date">
-  <button class="uk-button-primary uk-margin-left" (click)="submitRequest()">send</button>
-  <div class="uk-margin-top" *ngIf="results">
-    <table class="uk-table uk-table-striped uk-text-center">
-      <thead>
-      <tr class="uk-text-center">
-        <th class="uk-text-center">zipCode</th>
-        <th class="uk-text-center">request type</th>
-        <th class="uk-text-center">count</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let result of results">
-        <td>{{result[0]}}</td>
-        <td>{{result[1]}}</td>
-        <td>{{result[2]}}</td>
-      </tr>
-      </tbody>
-    </table>
+  <form [formGroup]="requestForm" class="uk-form">
+    <label class="uk-margin-right"
+           for="date"><span>Find the most common service request per zipcode for a specific day. </span></label>
+    <input id="date" type="date" formControlName="date">
+    <button class="uk-button-primary uk-margin-left" (click)="submitRequest()">send</button>
+    <div class="uk-margin-top" *ngIf="results">
+      <table class="uk-table uk-table-striped uk-text-center">
+        <thead>
+        <tr class="uk-text-center">
+          <th class="uk-text-center">zipCode</th>
+          <th class="uk-text-center">request type</th>
+          <th class="uk-text-center">count</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let result of results">
+          <td>{{result[0]}}</td>
+          <td>{{result[1]}}</td>
+          <td>{{result[2]}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </form>
+  <div *ngIf="loading" class="uk-overlay-default uk-position-cover"></div>
+  <div *ngIf="loading" class="uk-overlay uk-dark">
+    <div class="uk-position-center" uk-spinner="ratio: 3"></div>
   </div>
-</form>
 </div>

@@ -12,7 +12,8 @@ import {StoredFunction3} from '../../../domain/stored-function-3';
 export class ZipCodeTopRequestComponent implements OnInit {
   requestForm: FormGroup;
 
-  results: StoredFunction3[];
+  public results: StoredFunction3[];
+  public loading = false;
 
   formDefinition = {
     date: ['', Validators.required]
@@ -30,8 +31,12 @@ export class ZipCodeTopRequestComponent implements OnInit {
 
   submitRequest() {
     if (this.requestForm.valid) {
+      this.loading = true;
       this.requestService.getZipTopRequests(this.formatDate(this.requestForm.get('date').value)).subscribe(
-        res => this.results = res,
+        res => {
+          this.results = res;
+          this.loading = false;
+          },
         error => console.log(error)
       );
     }
