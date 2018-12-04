@@ -6,6 +6,8 @@ import {DashboardComponent} from './dashboard/dashboard.component';
 import {SearchForIncidentsComponent} from './search/search-for-incidents.component';
 import {ZipCodeTopRequestComponent} from './functions/zipCode-top-request.component';
 import {AuthGuard} from '../../services/auth-guard.service';
+import {RequestPerTypeComponent} from './functions/request-per-type.component';
+import {RequestsPerDayComponent} from './functions/requests-per-day.component';
 
 
 const routes: Routes = [
@@ -16,6 +18,8 @@ const routes: Routes = [
       {path: '', redirectTo: 'home/dashboard', pathMatch: 'full'},
       {path: 'home/dashboard', component: DashboardComponent},
       {path: 'home/searchForIncidents', component: SearchForIncidentsComponent},
+      {path: 'home/storedFunction/totalRequestPerType', component: RequestPerTypeComponent},
+      {path: 'home/storedFunction/totalRequestPerDay', component: RequestsPerDayComponent},
       {path: 'home/storedFunction/zipCodeTopRequests', component: ZipCodeTopRequestComponent}
     ],
     canActivate: [AuthGuard]

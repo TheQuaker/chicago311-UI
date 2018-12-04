@@ -1,0 +1,37 @@
+<div class="uk-container">
+
+  <span>Find  the  total  requests  per  type  that  were  created  within  a  specified  time  range  and  sort
+  them in a descending order.</span>
+  <form [formGroup]="requestForm" class="uk-form">
+    <label class="uk-margin-right" for="requestType">Request type:</label>
+    <input id="requestType" type="text" formControlName="requestType">
+    <label class="uk-margin-left uk-margin-right" for="startTime">Start time:</label>
+    <input id="startTime" type="time" step="1" formControlName="startTime">
+    <label class="uk-margin-left uk-margin-right" for="endTime">End time:</label>
+    <input id="endTime" type="time" step="1" formControlName="endTime">
+    <button class="uk-button-primary uk-margin-left" (click)="submitRequest()">send</button>
+
+    <div class="uk-margin-top" *ngIf="results">
+      <table class="uk-table uk-table-small uk-table-striped uk-text-center">
+        <thead>
+        <tr class="uk-text-center">
+          <th class="uk-width-medium uk-text-center">request type</th>
+          <th class="uk-width-small uk-text-center">count</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let result of results">
+          <td>{{result[0] | date: 'medium'}}</td>
+          <td>{{result[1]}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </form>
+  <div *ngIf="loading" class="uk-overlay-default uk-position-cover"></div>
+  <div *ngIf="loading" class="uk-overlay uk-dark">
+    <div class="uk-position-center" uk-spinner="ratio: 3"></div>
+  </div>
+</div>
+
+{{requestForm.value | json}}

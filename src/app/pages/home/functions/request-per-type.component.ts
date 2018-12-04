@@ -1,21 +1,22 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {RequestsService} from '../../../services/requests.service';
-import {StoredFunction3} from '../../../domain/stored-function-3';
+import {StoredFunction1} from '../../../domain/stored-function-1';
 
 
 @Component({
-  selector: 'app-sf3',
-  templateUrl: 'zipCode-top-request.component.html'
+  selector: 'app-sf1',
+  templateUrl: 'request-per-type.component.html'
 })
 
-export class ZipCodeTopRequestComponent implements OnInit {
+export class RequestPerTypeComponent implements OnInit {
   requestForm: FormGroup;
-
-  results: StoredFunction3[];
+  public results: StoredFunction1[];
+  public loading = false;
 
   formDefinition = {
-    date: ['', Validators.required]
+    fromDate: ['', Validators.required],
+    toDate: ['', Validators.required]
   };
 
   constructor(
@@ -30,9 +31,16 @@ export class ZipCodeTopRequestComponent implements OnInit {
 
   submitRequest() {
     if (this.requestForm.valid) {
-      this.requestService.getZipTopRequests(this.formatDate(this.requestForm.get('date').value)).subscribe(
-        res => this.results = res,
-        error => console.log(error)
+      this.loading = true;
+      this.requestService.getTypeTotalRequests(
+        this.formatDate(this.requestForm.get('fromDate').value),
+        this.formatDate(this.requestForm.get('toDate').value)).subscribe(
+        res => {
+          this.results = res;
+          this.loading = false;
+        },
+        error => console.log(error),
+        // () =>
       );
     }
   }
@@ -45,5 +53,4 @@ export class ZipCodeTopRequestComponent implements OnInit {
 
     return day + '-' + month + '-' + year;
   }
-
 }

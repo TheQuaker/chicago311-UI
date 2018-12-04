@@ -3,6 +3,8 @@ import {HttpClient, HttpErrorResponse, HttpParams} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {throwError} from 'rxjs';
 import {catchError} from 'rxjs/operators';
+import {StoredFunction1} from '../domain/stored-function-1';
+import {StoredFunction2} from '../domain/stored-function-2';
 import {StoredFunction3} from '../domain/stored-function-3';
 
 
@@ -11,17 +13,38 @@ import {StoredFunction3} from '../domain/stored-function-3';
 })
 
 export class RequestsService {
-  private url = environment.API_END_POINT + '/search/getZipTopRequests';
+  private url = environment.API_END_POINT + '/search';
 
   constructor(
     private http: HttpClient
   ) {}
 
+  getTypeTotalRequests(fromDate: string, toDate: string) {
+    let params = new HttpParams();
+    params = params.append('fromDate', fromDate);
+    params = params.append('toDate', toDate);
+
+    return this.http.get<StoredFunction1[]>(this.url + '/getTypeTotalRequests', {params}).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  getDayRequests(request: string, startTime: string, endTime: string) {
+    let params = new HttpParams();
+    params = params.append('request', request);
+    params = params.append('startTime', startTime);
+    params = params.append('endTime', endTime);
+
+    return this.http.get<StoredFunction2[]>(this.url + '/getDayRequests', {params}).pipe(
+      catchError(this.handleError)
+    );
+  }
+
   getZipTopRequests(date: string) {
     let params = new HttpParams();
     params = params.append('atDate', date);
 
-    return this.http.get<StoredFunction3[]>(this.url, {params}).pipe(
+    return this.http.get<StoredFunction3[]>(this.url + '/getZipTopRequests', {params}).pipe(
       catchError(this.handleError)
     );
   }
