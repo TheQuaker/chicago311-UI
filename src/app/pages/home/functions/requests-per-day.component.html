@@ -1,16 +1,15 @@
-<div class="uk-container">
+<div class="uk-container uk-text-center">
 
-  <span>Find  the  total  requests  per  type  that  were  created  within  a  specified  time  range  and  sort
-  them in a descending order.</span>
-  <form [formGroup]="requestForm" class="uk-form">
+  <span>Find the total requests per day for a specific request type and time range.</span>
+  <form [formGroup]="requestForm" class="uk-form uk-margin">
     <label class="uk-margin-right" for="requestType">Request type:</label>
     <input id="requestType" type="text" formControlName="requestType">
     <label class="uk-margin-left uk-margin-right" for="startTime">Start time:</label>
     <input id="startTime" type="time" step="1" formControlName="startTime">
     <label class="uk-margin-left uk-margin-right" for="endTime">End time:</label>
     <input id="endTime" type="time" step="1" formControlName="endTime">
-    <button class="uk-button-primary uk-margin-left" (click)="submitRequest()">send</button>
-
+    <button class="uk-button-primary uk-margin-left" (click)="submitRequest()">Search</button>
+  </form>
     <div class="uk-margin-top" *ngIf="results">
       <table class="uk-table uk-table-small uk-table-striped uk-text-center">
         <thead>
@@ -20,18 +19,25 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let result of results">
+        <tr *ngFor="let result of getViewList()">
           <td>{{result[0] | date: 'medium'}}</td>
           <td>{{result[1]}}</td>
         </tr>
         </tbody>
       </table>
+
+      <div class="uk-text-center">
+        <a class="uk-margin-right" (click)="first()"> <i class="fas fa-angle-double-left fa-2x"></i> </a>
+        <a class="uk-margin-right" (click)="previous()"> <i class="fas fa-angle-left fa-2x"></i> </a>
+        <span class="uk-margin-right" style="font-size: 24px">{{currentPage}}</span>
+        <a class="uk-margin-right" (click)="next()"><i class="fas fa-angle-right fa-2x"></i> </a>
+        <a class="uk-margin-right" (click)="last()"><i class="fas fa-angle-double-right fa-2x"></i> </a>
+      </div>
     </div>
-  </form>
   <div *ngIf="loading" class="uk-overlay-default uk-position-cover"></div>
   <div *ngIf="loading" class="uk-overlay uk-dark">
     <div class="uk-position-center" uk-spinner="ratio: 3"></div>
   </div>
 </div>
 
-{{requestForm.value | json}}
+<!--{{requestForm.value | json}}-->

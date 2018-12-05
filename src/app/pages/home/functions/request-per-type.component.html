@@ -1,13 +1,13 @@
-<div class="uk-container">
+<div class="uk-container uk-text-center">
 
   <span>Find  the  total  requests  per  type  that  were  created  within  a  specified  time  range  and  sort
   them in a descending order.</span>
-  <form [formGroup]="requestForm" class="uk-form">
+  <form [formGroup]="requestForm" class="uk-form uk-margin">
     <label class="uk-margin-right" for="fromDate">From date:</label>
     <input id="fromDate" type="date" formControlName="fromDate">
     <label class="uk-margin-right uk-margin-left" for="toDate">To date:</label>
     <input id="toDate" type="date" formControlName="toDate">
-    <button class="uk-button-primary uk-margin-left" (click)="submitRequest()">send</button>
+    <button class="uk-button-primary uk-margin-left" (click)="submitRequest()">Search</button>
 
     <div class="uk-margin-top" *ngIf="results">
       <table class="uk-table uk-table-small uk-table-striped uk-text-center">

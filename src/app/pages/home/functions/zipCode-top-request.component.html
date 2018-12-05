@@ -1,28 +1,36 @@
-<div class="uk-container">
-  <form [formGroup]="requestForm" class="uk-form">
+<div class="uk-container uk-text-center">
+  <form [formGroup]="requestForm" class="uk-form uk-margin">
     <label class="uk-margin-right"
            for="date"><span>Find the most common service request per zipcode for a specific day. </span></label>
     <input id="date" type="date" formControlName="date">
-    <button class="uk-button-primary uk-margin-left" (click)="submitRequest()">send</button>
-    <div class="uk-margin-top" *ngIf="results">
-      <table class="uk-table uk-table-striped uk-text-center">
-        <thead>
-        <tr class="uk-text-center">
-          <th class="uk-text-center">zipCode</th>
-          <th class="uk-text-center">request type</th>
-          <th class="uk-text-center">count</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let result of results">
-          <td>{{result[0]}}</td>
-          <td>{{result[1]}}</td>
-          <td>{{result[2]}}</td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
+    <button class="uk-button-primary uk-margin-left" (click)="submitRequest()">Search</button>
   </form>
+  <div class="uk-margin-top" *ngIf="results">
+    <table class="uk-table uk-table-striped uk-text-center">
+      <thead>
+      <tr class="uk-text-center">
+        <th class="uk-text-center">zipCode</th>
+        <th class="uk-text-center">request type</th>
+        <th class="uk-text-center">count</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let result of getViewList()">
+        <td>{{result[0]}}</td>
+        <td>{{result[1]}}</td>
+        <td>{{result[2]}}</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div class="uk-text-center">
+      <a class="uk-margin-right" (click)="first()"> <i class="fas fa-angle-double-left fa-2x"></i> </a>
+      <a class="uk-margin-right" (click)="previous()"> <i class="fas fa-angle-left fa-2x"></i> </a>
+      <span class="uk-margin-right" style="font-size: 24px">{{currentPage}}</span>
+      <a class="uk-margin-right" (click)="next()"><i class="fas fa-angle-right fa-2x"></i> </a>
+      <a class="uk-margin-right" (click)="last()"><i class="fas fa-angle-double-right fa-2x"></i> </a>
+    </div>
+  </div>
   <div *ngIf="loading" class="uk-overlay-default uk-position-cover"></div>
   <div *ngIf="loading" class="uk-overlay uk-dark">
     <div class="uk-position-center" uk-spinner="ratio: 3"></div>

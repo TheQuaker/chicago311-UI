@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {RequestsService} from '../../../services/requests.service';
 import {StoredFunction2} from '../../../domain/stored-function-2';
+import {StoredFunction3} from '../../../domain/stored-function-3';
 
 @Component({
   selector: 'app-sf2',
@@ -11,7 +12,11 @@ import {StoredFunction2} from '../../../domain/stored-function-2';
 export class RequestsPerDayComponent implements OnInit {
   requestForm: FormGroup;
   public results: StoredFunction2[];
+  public viewResults: StoredFunction2[];
   public loading = false;
+  public currentPage: number;
+  private step = 10;
+  private start = 0;
 
   formDefinition = {
     requestType: ['', Validators.required],
@@ -43,4 +48,30 @@ export class RequestsPerDayComponent implements OnInit {
       );
     }
   }
+
+  getViewList(): StoredFunction2[] {
+    this.currentPage = Math.floor(this.start / this.step ) + 1;
+    return this.viewResults = this.results.slice(this.start, this.start + this.step);
+  }
+
+  first() {
+    this.start = 0;
+  }
+
+  next() {
+    if (this.results.length > this.start + this.step ) {
+      this.start = this.start + this.step;
+    }
+  }
+
+  previous() {
+    if (this.start > 0) {
+      this.start = this.start - this.step;
+    }
+  }
+
+  last() {
+    this.start = Math.floor(this.results.length / this.step ) * this.step;
+  }
+
 }
