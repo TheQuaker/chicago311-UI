@@ -7,6 +7,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {RequestPerTypeComponent} from './functions/request-per-type.component';
 import {RequestsPerDayComponent} from './functions/requests-per-day.component';
 import {ZipCodeTopRequestComponent} from './functions/zipCode-top-request.component';
+import {NewIncidentComponent} from './newIncident/new-incident.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import {ZipCodeTopRequestComponent} from './functions/zipCode-top-request.compon
     SearchForIncidentsComponent,
     RequestPerTypeComponent,
     RequestsPerDayComponent,
-    ZipCodeTopRequestComponent
+    ZipCodeTopRequestComponent,
+    NewIncidentComponent
   ]
 })
 

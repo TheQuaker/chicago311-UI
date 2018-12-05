@@ -1,0 +1,56 @@
+<div class="uk-container">
+  <form [formGroup]="newIncidentForm" class="uk-form-stacked uk-grid ">
+
+    <div class="uk-width-1-3@m">
+      <label class="uk-form-label" for="TypeofServiceRequest">Request type:</label>
+      <div class="uk-form-controls">
+        <input class="uk-input" id="TypeofServiceRequest" type="text" formControlName="TypeofServiceRequest">
+      </div>
+    </div>
+    <div class="uk-width-1-3@m">
+      <label class="uk-form-label" for="StreetAddress">StreetAddress</label>
+      <div class="uk-form-controls">
+        <input class="uk-input" id="StreetAddress" type="text" formControlName="StreetAddress">
+      </div>
+    </div>
+    <div class="uk-width-1-3@m">
+      <label class="uk-form-label" for="Ward">Ward</label>
+      <div class="uk-form-controls">
+        <input class="uk-input" id="Ward" type="text" formControlName="Ward">
+      </div>
+    </div>
+    <div class="uk-width-1-3@m">
+      <label class="uk-form-label" for="PoliceDistrict">PoliceDistrict</label>
+      <div class="uk-form-controls">
+        <input class="uk-input" id="PoliceDistrict" type="text" formControlName="PoliceDistrict">
+      </div>
+    </div>
+    <div class="uk-width-1-3@m">
+      <label class="uk-form-label" for="CommunityArea">CommunityArea</label>
+      <div class="uk-form-controls">
+        <input class="uk-input" id="CommunityArea" type="text" formControlName="CommunityArea">
+      </div>
+    </div>
+    <div class="uk-width-1-3@m">
+      <label class="uk-form-label" for="Longitude">Longitude</label>
+      <div class="uk-form-controls">
+        <input class="uk-input" id="Longitude" type="text" formControlName="Longitude">
+      </div>
+    </div>
+    <div class="uk-width-1-3@m">
+      <label class="uk-form-label" for="Latitude">Latitude</label>
+      <div class="uk-form-controls">
+        <input class="uk-input" id="Latitude" type="text" formControlName="Latitude">
+      </div>
+    </div>
+
+    <!--<label class="-left -right" for="endTime">End time:</label>-->
+    <!--<input id="endTime" type="time" step="1" formControlName="endTime">-->
+
+  </form>
+  <button class="uk-button-primary uk-margin-top" (click)="submitIncident()">Search</button>
+
+
+  <div id="map" class="map uk-margin"></div>
+</div>
+{{newIncidentForm.value | json}}
