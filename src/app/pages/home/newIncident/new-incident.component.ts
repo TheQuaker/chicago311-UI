@@ -24,6 +24,12 @@ export class NewIncidentComponent implements OnInit {
   public ssaForm: FormGroup;
   public curActivityActionForm: FormGroup;
   public treeLocationForm: FormGroup;
+  public abandonedVehiclesForm: FormGroup;
+  public potholesForm: FormGroup;
+  public graffitiForm: FormGroup;
+  public rodentForm: FormGroup;
+  public sanitationViolationForm: FormGroup;
+  public garbageCartForm: FormGroup;
 
   formDefinition = {
     TypeofServiceRequest: ['', Validators.required],
@@ -59,7 +65,7 @@ export class NewIncidentComponent implements OnInit {
   };
 
   garbage_carts = {
-    NumberofBlackCartsDelivered: ''
+    NumberOfBlackCartsDelivered: ''
   };
 
   graffiti_removal = {
@@ -73,12 +79,12 @@ export class NewIncidentComponent implements OnInit {
 
   rodent_baiting = {
     PremisesBaited: '',
-    PremiseswithGarbage: '',
-    PremiseswithRats: ''
+    PremisesWithGarbage: '',
+    PremisesWithRats: ''
   };
 
   sanitation_complaints = {
-    NatureofCodeViolation: ''
+    NatureOfCodeViolation: ''
   };
 
   tree_debris_trims_location = {
@@ -215,6 +221,15 @@ export class NewIncidentComponent implements OnInit {
       this.form.push(this.treeLocationForm);
     }
 
+    if (this.submitForm.valid) {
+      console.log(' is valid ');
+      this.postNewIncident();
+    } else {
+      console.log(' is invalid ');
+      this.errorMessage = 'The fields are required';
+      return;
+    }
+
     this.postNewIncident();
 
     console.log(this.types);
@@ -224,9 +239,9 @@ export class NewIncidentComponent implements OnInit {
     this.formType = event.target.value;
     console.log(this.formType);
     if (this.formType === 'Abandoned Vehicle Complaint'
-        || this.formType === 'Pothole in Street'
-        || this.formType === 'Garbage Cart Black Maintenance/Replacement'
-        || this.formType === 'Graffiti Removal') {
+      || this.formType === 'Pothole in Street'
+      || this.formType === 'Garbage Cart Black Maintenance/Replacement'
+      || this.formType === 'Graffiti Removal') {
       this.ssaForm = this.fb.group(this.ssaDefinition);
     }
     if (this.formType === 'Abandoned Vehicle Complaint'
@@ -240,11 +255,29 @@ export class NewIncidentComponent implements OnInit {
       || this.formType === 'Tree Trim') {
       this.treeLocationForm = this.fb.group(this.tree_debris_trims_location);
     }
-
+    if (this.formType === 'Abandoned Vehicle Complaint') {
+      this.abandonedVehiclesForm = this.fb.group(this.abandoned_vehicles);
+    }
+    if (this.formType === 'Pothole in Street') {
+      this.potholesForm = this.fb.group(this.potholes_reported);
+    }
+    if (this.formType === 'Rodent Baiting/Rat Complaint') {
+      this.rodentForm = this.fb.group(this.rodent_baiting);
+    }
+    if (this.formType === 'Garbage Cart Black Maintenance/Replacement') {
+      this.garbageCartForm = this.fb.group(this.garbage_carts);
+    }
+    if (this.formType === 'Graffiti Removal') {
+      this.graffitiForm = this.fb.group(this.graffiti_removal);
+    }
+    if (this.formType === 'Sanitation Code Violation') {
+      this.sanitationViolationForm  = this.fb.group(this.sanitation_complaints);
+    }
   }
 
   postNewIncident() {
-    this.requestService.postNewIncident(JSON.stringify(this.submitForm.value)).subscribe(
+    // this.requestService.postNewIncident(JSON.stringify(this.submitForm.value)).subscribe(
+    this.requestService.postNewIncident(this.submitForm.value).subscribe(
       _ => {},
       error => this.errorMessage = <any> error
     );
