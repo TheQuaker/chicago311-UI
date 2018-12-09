@@ -18,7 +18,7 @@ import {UserActivity} from '../domain/user-activity';
 
 export class RequestsService {
   private url = environment.API_END_POINT + '/search';
-  private postUrl = environment.API_END_POINT + '/save/newincident';
+  private postUrl = environment.API_END_POINT + '/save/newIncident';
   private userUrl = environment.API_END_POINT + '/users/getUserActivities';
 
   constructor(

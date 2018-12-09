@@ -47,7 +47,9 @@ export class LoginComponent implements OnInit {
       () => {
         console.log('User is logged in');
         this.router.navigateByUrl('home/dashboard');
-      });
+        },
+      error => this.errorMessage = JSON.stringify(error)
+      );
   }
 
   removeAlert() {
