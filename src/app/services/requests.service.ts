@@ -71,8 +71,9 @@ export class RequestsService {
 
   postNewIncident(data: NewIncident) {
     console.log('wtf happens 1 ');
-    console.log(JSON.stringify(data));
-    return this.http.post(this.postUrl, JSON.stringify(data)).pipe(
+    // console.log(JSON.stringify(data));
+    console.log(data);
+    return this.http.post(this.postUrl, data).pipe(
       catchError(this.handleError)
     );
   }

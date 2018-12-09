@@ -8,6 +8,7 @@ import {RequestPerTypeComponent} from './functions/request-per-type.component';
 import {RequestsPerDayComponent} from './functions/requests-per-day.component';
 import {ZipCodeTopRequestComponent} from './functions/zipCode-top-request.component';
 import {NewIncidentComponent} from './newIncident/new-incident.component';
+import {UserActionsComponent} from './user/user-actions.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import {NewIncidentComponent} from './newIncident/new-incident.component';
     RequestPerTypeComponent,
     RequestsPerDayComponent,
     ZipCodeTopRequestComponent,
-    NewIncidentComponent
+    NewIncidentComponent,
+    UserActionsComponent
   ]
 })
 

@@ -34,16 +34,16 @@ export class NewIncidentComponent implements OnInit {
   public garbageCartForm: FormGroup;
 
   formDefinition = {
-    TypeofServiceRequest: ['', Validators.required],
-    StreetAddress: ['', Validators.required],
-    ZIPCode: ['', Validators.required],
-    Xcoordinate: [''],
-    Ycoordinate: [''],
-    Ward: ['', Validators.required],
-    PoliceDistrict: ['', Validators.required],
-    CommunityArea: ['', Validators.required],
-    Latitude: ['', Validators.required],
-    Longitude: ['', Validators.required],
+    typeofservicerequest: ['', Validators.required],
+    streetaddress: ['', Validators.required],
+    zipode: ['', Validators.required],
+    xcoordinate: [''],
+    ycoordinate: [''],
+    ward: ['', Validators.required],
+    policedistrict: ['', Validators.required],
+    communityarea: ['', Validators.required],
+    latitude: ['', Validators.required],
+    longitude: ['', Validators.required],
     // Location: this.fb.group({
     //   latitude: [''],
     //   longitude: ['']
@@ -55,8 +55,8 @@ export class NewIncidentComponent implements OnInit {
   };
 
   activity_actionsDefinition = {
-    CurrentActivity: '',
-    MostRecentAction: ''
+    currentactivity: '',
+    mostrecentaction: ''
   };
 
   abandoned_vehicles = {
@@ -67,26 +67,26 @@ export class NewIncidentComponent implements OnInit {
   };
 
   garbage_carts = {
-    NumberOfBlackCartsDelivered: ''
+    numberofblackcartsdelivered: ''
   };
 
   graffiti_removal = {
-    Surface: '',
-    GraffitiLocation: ''
+    surface: '',
+    graffitilocation: ''
   };
 
   potholes_reported = {
-    PotholesFilledOnBlock: ''
+    potholesfilledonblock: ''
   };
 
   rodent_baiting = {
-    PremisesBaited: '',
-    PremisesWithGarbage: '',
-    PremisesWithRats: ''
+    premisesbaited: '',
+    premiseswithgarbage: '',
+    premiseswithrats: ''
   };
 
   sanitation_complaints = {
-    NatureOfCodeViolation: ''
+    natureofcodeviolation: ''
   };
 
   tree_debris_trims_location = {
@@ -202,16 +202,16 @@ export class NewIncidentComponent implements OnInit {
     this.submitForm = this.fb.array([]);
     this.errorMessage = '';
 
-    this.newIncidentForm.get('Xcoordinate').setValue(document.getElementById('Xcoordinate').innerText);
-    this.newIncidentForm.get('Ycoordinate').setValue(document.getElementById('Ycoordinate').innerText);
-    this.newIncidentForm.get('Longitude').setValue(document.getElementById('Longitude').innerText);
-    this.newIncidentForm.get('Latitude').setValue(document.getElementById('Latitude').innerText);
-    this.newIncidentForm.patchValue({
-      Location: {
-        latitude: this.newIncidentForm.get('Latitude').value,
-        longitude: this.newIncidentForm.get('Longitude').value
-      }
-    });
+    this.newIncidentForm.get('xcoordinate').setValue(document.getElementById('Xcoordinate').innerText);
+    this.newIncidentForm.get('ycoordinate').setValue(document.getElementById('Ycoordinate').innerText);
+    this.newIncidentForm.get('longitude').setValue(document.getElementById('Longitude').innerText);
+    this.newIncidentForm.get('latitude').setValue(document.getElementById('Latitude').innerText);
+    // this.newIncidentForm.patchValue({
+    //   Location: {
+    //     latitude: this.newIncidentForm.get('Latitude').value,
+    //     longitude: this.newIncidentForm.get('Longitude').value
+    //   }
+    // });
 
     this.form.push(this.newIncidentForm);
     this.megaform.chicagoRequest = this.newIncidentForm.value;
@@ -264,7 +264,7 @@ export class NewIncidentComponent implements OnInit {
       this.megaform.sanitationComplaintsInfo = this.sanitationViolationForm.value;
     }
 
-    if (this.submitForm.valid) { //check again
+    if (this.submitForm.valid) { // check again
       console.log(' is valid ');
       // this.postNewIncident();
     } else {

@@ -11,7 +11,7 @@
     <div class="uk-width-1-3@m">
       <label class="uk-form-label" for="TypeofServiceRequest">Request type:</label>
       <div class="uk-form-controls">
-        <select class="uk-input" id="TypeofServiceRequest" formControlName="TypeofServiceRequest"
+        <select class="uk-input" id="TypeofServiceRequest" formControlName="typeofservicerequest"
                 (change)="onTypeSelect($event)">
           <option value="null" selected hidden>Select request type</option>
           <option *ngFor="let type of types" [value]=type.type>{{type.type}}</option>
@@ -21,43 +21,43 @@
     <div class="uk-width-1-3@m">
       <label class="uk-form-label" for="StreetAddress">StreetAddress</label>
       <div class="uk-form-controls">
-        <input class="uk-input" id="StreetAddress" type="text" formControlName="StreetAddress">
+        <input class="uk-input" id="StreetAddress" type="text" formControlName="streetaddress">
       </div>
     </div>
     <div class="uk-width-1-3@m">
       <label class="uk-form-label" for="ZIPCode">ZIPCode</label>
       <div class="uk-form-controls">
-        <input class="uk-input" id="ZIPCode" type="number" formControlName="ZIPCode">
+        <input class="uk-input" id="ZIPCode" type="number" formControlName="zipode">
       </div>
     </div>
     <div class="uk-width-1-3@m">
       <label class="uk-form-label" for="Ward">Ward</label>
       <div class="uk-form-controls">
-        <input class="uk-input" id="Ward" type="number" formControlName="Ward">
+        <input class="uk-input" id="Ward" type="number" formControlName="ward">
       </div>
     </div>
     <div class="uk-width-1-3@m">
       <label class="uk-form-label" for="PoliceDistrict">PoliceDistrict</label>
       <div class="uk-form-controls">
-        <input class="uk-input" id="PoliceDistrict" type="number" formControlName="PoliceDistrict">
+        <input class="uk-input" id="PoliceDistrict" type="number" formControlName="policedistrict">
       </div>
     </div>
     <div class="uk-width-1-3@m">
       <label class="uk-form-label" for="CommunityArea">CommunityArea</label>
       <div class="uk-form-controls">
-        <input class="uk-input" id="CommunityArea" type="number" formControlName="CommunityArea">
+        <input class="uk-input" id="CommunityArea" type="number" formControlName="communityarea">
       </div>
     </div>
     <div class="uk-width-1-3@m">
       <label class="uk-form-label" for="lon">Longitude</label>
       <div class="uk-form-controls">
-        <input class="uk-input" id="lon" type="text" formControlName="Longitude">
+        <input class="uk-input" id="lon" type="text" formControlName="longitude">
       </div>
     </div>
     <div class="uk-width-1-3@m">
       <label class="uk-form-label" for="lat">Latitude</label>
       <div class="uk-form-controls">
-        <input class="uk-input" id="lat" type="text" formControlName="Latitude">
+        <input class="uk-input" id="lat" type="text" formControlName="latitude">
       </div>
     </div>
 
@@ -70,13 +70,13 @@
       <div class="uk-width-1-2@m">
         <label class="uk-form-label" for="curActivity">Current Activity</label>
         <div class="uk-form-controls">
-          <input class="uk-input" id="curActivity" type="text" formControlName="CurrentActivity">
+          <input class="uk-input" id="curActivity" type="text" formControlName="currentactivity">
         </div>
       </div>
       <div class="uk-width-1-2@m">
         <label class="uk-form-label" for="MostRecentAction">MostRecentAction</label>
         <div class="uk-form-controls">
-          <input class="uk-input" id="MostRecentAction" type="text" formControlName="MostRecentAction">
+          <input class="uk-input" id="MostRecentAction" type="text" formControlName="mostrecentaction">
         </div>
       </div>
     </form>
@@ -138,7 +138,7 @@
         <label class="uk-form-label" for="NumberOfBlackCartsDelivered">NumberOfBlackCartsDelivered</label>
         <div class="uk-form-controls">
           <input class="uk-input" id="NumberOfBlackCartsDelivered" type="number" step="1"
-                 formControlName="NumberOfBlackCartsDelivered">
+                 formControlName="numberofblackcartsdelivered">
         </div>
       </div>
     </form>
@@ -148,13 +148,13 @@
       <div class="uk-width-1-2@m">
         <label class="uk-form-label" for="Surface">Surface</label>
         <div class="uk-form-controls">
-          <input class="uk-input" id="Surface" type="text" formControlName="Surface">
+          <input class="uk-input" id="Surface" type="text" formControlName="surface">
         </div>
       </div>
       <div class="uk-width-1-2@m">
         <label class="uk-form-label" for="GraffitiLocation">GraffitiLocation</label>
         <div class="uk-form-controls">
-          <input class="uk-input" id="GraffitiLocation" type="text" formControlName="GraffitiLocation">
+          <input class="uk-input" id="GraffitiLocation" type="text" formControlName="graffitilocation">
         </div>
       </div>
     </form>
@@ -165,7 +165,7 @@
         <label class="uk-form-label" for="PotholesFilledOnBlock">PotholesFilledOnBlock</label>
         <div class="uk-form-controls">
           <input class="uk-input" id="PotholesFilledOnBlock" type="number" step="1"
-                 formControlName="PotholesFilledOnBlock">
+                 formControlName="potholesfilledonblock">
         </div>
       </div>
     </form>
@@ -175,19 +175,19 @@
       <div class="uk-width-1-3@m">
         <label class="uk-form-label" for="PremisesBaited">PremisesBaited</label>
         <div class="uk-form-controls">
-          <input class="uk-input" id="PremisesBaited" type="number" step="1" formControlName="PremisesBaited">
+          <input class="uk-input" id="PremisesBaited" type="number" step="1" formControlName="premisesbaited">
         </div>
       </div>
       <div class="uk-width-1-3@m">
         <label class="uk-form-label" for="PremisesWithGarbage">PremisesWithGarbage</label>
         <div class="uk-form-controls">
-          <input class="uk-input" id="PremisesWithGarbage" type="number" step="1" formControlName="PremisesWithGarbage">
+          <input class="uk-input" id="PremisesWithGarbage" type="number" step="1" formControlName="premiseswithgarbage">
         </div>
       </div>
       <div class="uk-width-1-3@m">
         <label class="uk-form-label" for="PremisesWithRats">PremisesWithRats</label>
         <div class="uk-form-controls">
-          <input class="uk-input" id="PremisesWithRats" type="number" step="1" formControlName="PremisesWithRats">
+          <input class="uk-input" id="PremisesWithRats" type="number" step="1" formControlName="premiseswithrats">
         </div>
       </div>
     </form>
@@ -197,7 +197,7 @@
       <div class="uk-width-1-2@m">
         <label class="uk-form-label" for="NatureOfCodeViolation">NatureOfCodeViolation</label>
         <div class="uk-form-controls">
-          <input class="uk-input" id="NatureOfCodeViolation" type="text" formControlName="NatureOfCodeViolation">
+          <input class="uk-input" id="NatureOfCodeViolation" type="text" formControlName="natureofcodeviolation">
         </div>
       </div>
     </form>
