@@ -244,7 +244,7 @@ export class NewIncidentComponent implements OnInit {
   }
 
   postNewIncident() {
-    this.requestService.postNewIncident(this.submitForm.value).subscribe(
+    this.requestService.postNewIncident(JSON.stringify(this.submitForm.value)).subscribe(
       _ => {},
       error => this.errorMessage = <any> error
     );
