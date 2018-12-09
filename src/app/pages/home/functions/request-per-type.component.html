@@ -37,7 +37,7 @@
     <div class="uk-position-center" uk-spinner="ratio: 3"></div>
   </div>
 
-  <div class="uk-margin-top" *ngIf="results.length === 0">
+  <div class="uk-margin-top" *ngIf="results && results.length === 0">
     <span>No results were found for this input</span>
   </div>
 

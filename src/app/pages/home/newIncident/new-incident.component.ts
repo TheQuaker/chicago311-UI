@@ -3,6 +3,7 @@ import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {RequestsService} from '../../../services/requests.service';
 import {Type} from '../../../domain/type';
 import {NewIncident} from '../../../domain/new-incident';
+import {Router} from '@angular/router';
 
 
 declare var ol: any;
@@ -36,7 +37,7 @@ export class NewIncidentComponent implements OnInit {
   formDefinition = {
     typeofservicerequest: ['', Validators.required],
     streetaddress: ['', Validators.required],
-    zipode: ['', Validators.required],
+    zipcode: ['', Validators.required],
     xcoordinate: [''],
     ycoordinate: [''],
     ward: ['', Validators.required],
@@ -95,7 +96,8 @@ export class NewIncidentComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private requestService: RequestsService
+    private requestService: RequestsService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -329,15 +331,12 @@ export class NewIncidentComponent implements OnInit {
 
   postNewIncident() {
 
-    // this.megaform.chicagoRequest = JSON.stringify(this.newIncidentForm.value);
-    // this.megaform.chicagoRequest.patchValue(this.newIncidentForm.value);
-    // console.log(this.megaform.chicagoRequest.value);
-
     // this.requestService.postNewIncident(JSON.stringify(this.submitForm.value)).subscribe(
     this.requestService.postNewIncident(this.megaform).subscribe(
       _ => {},
       error => this.errorMessage = <any> error
     );
+    this.router.navigateByUrl('home/dashboard');
   }
 
   get form() {

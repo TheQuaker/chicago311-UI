@@ -1,2 +1,51 @@
+<div class="uk-grid uk-align-center" uk-grid>
 
-<p>TEst</p>
+  <span>Here you can see past activity</span>
+
+  <div *ngIf="errorMessage" class="uk-align-center uk-width-1-3@m uk-alert uk-alert-danger">
+    <!--<button class="uk-alert-close" (click)="removeAlert()" uk-close></button>-->
+    <a class="uk-alert-close" uk-close></a>
+    <p>{{errorMessage}}</p>
+  </div>
+
+  <div class="uk-margin-top uk-text-center" *ngIf="results && getViewList().length > 0">
+
+    <div class="uk-text-center">
+      <a class="uk-margin-right" (click)="first()"> <i class="fas fa-angle-double-left fa-lg"></i> </a>
+      <a class="uk-margin-right" (click)="previous()"> <i class="fas fa-angle-left fa-lg"></i> </a>
+      <span class="uk-margin-right" style="font-size: 16px">{{currentPage}}</span>
+      <a class="uk-margin-right" (click)="next()"><i class="fas fa-angle-right fa-lg"></i> </a>
+      <a class="uk-margin-right" (click)="last()"><i class="fas fa-angle-double-right fa-lg"></i> </a>
+    </div>
+
+    <table class="uk-table uk-table-striped uk-text-center">
+      <thead>
+      <tr class="uk-text-center">
+        <!--<th class="uk-text-center">id</th>-->
+        <th class="uk-text-center">query</th>
+        <th class="uk-text-center">date</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let result of getViewList()">
+        <!--<td>{{result.id}}</td>-->
+        <td>{{result.query}}</td>
+        <td>{{result.timestamp | date: 'medium'}}</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div class="uk-text-center">
+      <a class="uk-margin-right" (click)="first()"> <i class="fas fa-angle-double-left fa-lg"></i> </a>
+      <a class="uk-margin-right" (click)="previous()"> <i class="fas fa-angle-left fa-lg"></i> </a>
+      <span class="uk-margin-right" style="font-size: 16px">{{currentPage}}</span>
+      <a class="uk-margin-right" (click)="next()"><i class="fas fa-angle-right fa-lg"></i> </a>
+      <a class="uk-margin-right" (click)="last()"><i class="fas fa-angle-double-right fa-lg"></i> </a>
+    </div>
+  </div>
+
+  <div class="uk-margin-top" *ngIf="results && getViewList().length === 0">
+    <span>No results</span>
+  </div>
+
+</div>

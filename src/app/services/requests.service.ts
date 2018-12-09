@@ -9,6 +9,7 @@ import {StoredFunction2} from '../domain/stored-function-2';
 import {StoredFunction3} from '../domain/stored-function-3';
 import {NewIncident} from '../domain/new-incident';
 import {AddressZipResponce} from '../domain/address-zip-responce';
+import {UserActivity} from '../domain/user-activity';
 
 
 @Injectable({
@@ -18,6 +19,7 @@ import {AddressZipResponce} from '../domain/address-zip-responce';
 export class RequestsService {
   private url = environment.API_END_POINT + '/search';
   private postUrl = environment.API_END_POINT + '/save/newincident';
+  private userUrl = environment.API_END_POINT + '/users/getUserActivities';
 
   constructor(
     private http: HttpClient
@@ -65,6 +67,12 @@ export class RequestsService {
     params = params.append('zipcode', zipcode);
 
     return this.http.get<AddressZipResponce[]>(this.url + '/getRequestsByZipcodeAndStreet', {params}).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  getUserActivities() {
+    return this.http.get<UserActivity[]>(this.userUrl).pipe(
       catchError(this.handleError)
     );
   }

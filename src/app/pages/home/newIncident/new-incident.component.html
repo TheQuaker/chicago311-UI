@@ -1,7 +1,6 @@
 <div class="uk-container">
 
   <div *ngIf="errorMessage" class="uk-align-center uk-width-1-3@m uk-alert uk-alert-danger">
-    <!--<button class="uk-alert-close" (click)="removeAlert()" uk-close></button>-->
     <a class="uk-alert-close" uk-close></a>
     <p>{{errorMessage}}</p>
   </div>
@@ -27,7 +26,7 @@
     <div class="uk-width-1-3@m">
       <label class="uk-form-label" for="ZIPCode">ZIPCode</label>
       <div class="uk-form-controls">
-        <input class="uk-input" id="ZIPCode" type="number" formControlName="zipode">
+        <input class="uk-input" id="ZIPCode" type="number" formControlName="zipcode">
       </div>
     </div>
     <div class="uk-width-1-3@m">
@@ -214,8 +213,8 @@
 
 </div>
 <!--{{newIncidentForm.value | json}}-->
-  test
-  {{megaform | json}}
+  <!--test-->
+  <!--{{megaform | json}}-->
 <!--test-->
 <!--{{submitForm.value | json}}-->
 

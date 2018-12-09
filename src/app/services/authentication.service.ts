@@ -33,13 +33,13 @@ export class AuthenticationService {
   }
 
   public setSession(authResult) {
-    // const expiresAt = moment().add(authResult.expiresIn, 'second');
+    const expiresAt = moment().add(authResult.mseconds / 1000, 'second');
 
     localStorage.setItem('id_token', authResult.jwt);
     localStorage.setItem('user_name', authResult.username);
     this.userName = localStorage.getItem('user_name');
-    console.log();
-    // localStorage.setItem('expires_at', JSON.stringify(expiresAt.valueOf()));
+    localStorage.setItem('expires_at', JSON.stringify(expiresAt.valueOf()));
+    console.log(localStorage.getItem('expires_at'));
   }
 
   logout() {
@@ -49,7 +49,7 @@ export class AuthenticationService {
   }
 
   public isLoggedIn() {
-    // return moment().isBefore(this.getExpiration());
+    return moment().isBefore(this.getExpiration());
     if (localStorage.getItem('id_token')) { //
       // logged in so return true
       return true;
