@@ -7,6 +7,7 @@ import {Type} from '../domain/type';
 import {StoredFunction1} from '../domain/stored-function-1';
 import {StoredFunction2} from '../domain/stored-function-2';
 import {StoredFunction3} from '../domain/stored-function-3';
+import {NewIncident} from '../domain/new-incident';
 
 
 @Injectable({
@@ -57,10 +58,10 @@ export class RequestsService {
     );
   }
 
-  postNewIncident(data: any) {
-    console.log('wtf happens ');
-    console.log(data);
-    return this.http.post(this.postUrl, data).pipe(
+  postNewIncident(data: NewIncident) {
+    console.log('wtf happens 1 ');
+    console.log(JSON.stringify(data));
+    return this.http.post(this.postUrl, JSON.stringify(data)).pipe(
       catchError(this.handleError)
     );
   }

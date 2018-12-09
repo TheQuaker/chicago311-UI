@@ -161,11 +161,43 @@
 
     <form *ngIf="formType === 'Pothole in Street'"
           [formGroup]="potholesForm" class="uk-form-stacked uk-width-1-1@m">
-      <div class="uk-width-1-1@m">
+      <div class="uk-width-1-3@m">
         <label class="uk-form-label" for="PotholesFilledOnBlock">PotholesFilledOnBlock</label>
         <div class="uk-form-controls">
           <input class="uk-input" id="PotholesFilledOnBlock" type="number" step="1"
                  formControlName="PotholesFilledOnBlock">
+        </div>
+      </div>
+    </form>
+
+    <form *ngIf="formType === 'Rodent Baiting/Rat Complaint'"
+          [formGroup]="rodentForm" class="uk-form-stacked uk-grid">
+      <div class="uk-width-1-3@m">
+        <label class="uk-form-label" for="PremisesBaited">PremisesBaited</label>
+        <div class="uk-form-controls">
+          <input class="uk-input" id="PremisesBaited" type="number" step="1" formControlName="PremisesBaited">
+        </div>
+      </div>
+      <div class="uk-width-1-3@m">
+        <label class="uk-form-label" for="PremisesWithGarbage">PremisesWithGarbage</label>
+        <div class="uk-form-controls">
+          <input class="uk-input" id="PremisesWithGarbage" type="number" step="1" formControlName="PremisesWithGarbage">
+        </div>
+      </div>
+      <div class="uk-width-1-3@m">
+        <label class="uk-form-label" for="PremisesWithRats">PremisesWithRats</label>
+        <div class="uk-form-controls">
+          <input class="uk-input" id="PremisesWithRats" type="number" step="1" formControlName="PremisesWithRats">
+        </div>
+      </div>
+    </form>
+
+    <form *ngIf="formType === 'Sanitation Code Violation'"
+          [formGroup]="sanitationViolationForm" class="uk-form-stacked uk-width-1-1@m">
+      <div class="uk-width-1-2@m">
+        <label class="uk-form-label" for="NatureOfCodeViolation">NatureOfCodeViolation</label>
+        <div class="uk-form-controls">
+          <input class="uk-input" id="NatureOfCodeViolation" type="text" formControlName="NatureOfCodeViolation">
         </div>
       </div>
     </form>
@@ -181,13 +213,11 @@
 
 
 </div>
-{{newIncidentForm.value | json}}
-<div *ngIf="treeLocationForm">
-  LOCATION
-  {{treeLocationForm.value | json}}
-</div>
-test
-{{submitForm.value | json}}
+<!--{{newIncidentForm.value | json}}-->
+  test
+  {{megaform | json}}
+<!--test-->
+<!--{{submitForm.value | json}}-->
 
 <div id="Xcoordinate" #Xcoordinate style="display: none"></div>
 <div id="Ycoordinate" #Ycoordinate style="display: none"></div>

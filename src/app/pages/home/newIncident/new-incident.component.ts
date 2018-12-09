@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {RequestsService} from '../../../services/requests.service';
 import {Type} from '../../../domain/type';
+import {NewIncident} from '../../../domain/new-incident';
 
 
 declare var ol: any;
@@ -17,6 +18,7 @@ export class NewIncidentComponent implements OnInit {
   map: any;
 
   submitForm = this.fb.array([]);
+  megaform = new NewIncident;
   public errorMessage: string;
   public types: Type[];
   public formType: string;
@@ -99,6 +101,16 @@ export class NewIncidentComponent implements OnInit {
   ngOnInit() {
     this.getTypes();
     this.newIncidentForm = this.fb.group(this.formDefinition);
+    this.megaform.abandonedVehiclesInfo = null;
+    this.megaform.chicagoRequest = null;
+    this.megaform.currentActivityMostRecentAction = null;
+    this.megaform.garbageCartsInfo = null;
+    this.megaform.graffitiRemoval = null;
+    this.megaform.potholesReportedInfo = null;
+    this.megaform.rodentBaitingInfo = null;
+    this.megaform.sanitationComplaintsInfo = null;
+    this.megaform.ssa = null;
+    this.megaform.treeDebrisTrimsInfo = null;
 
 
     const mousePositionControl = new ol.control.MousePosition({
@@ -202,6 +214,7 @@ export class NewIncidentComponent implements OnInit {
     });
 
     this.form.push(this.newIncidentForm);
+    this.megaform.chicagoRequest = this.newIncidentForm.value;
 
     if (this.formType === 'Street Lights - All/Out'
       || this.formType === 'Street Light Out'
@@ -214,16 +227,46 @@ export class NewIncidentComponent implements OnInit {
       || this.formType === 'Tree Debris'
       || this.formType === 'Garbage Cart Black Maintenance/Replacement') {
       this.form.push(this.curActivityActionForm);
+      this.megaform.currentActivityMostRecentAction = this.curActivityActionForm.value;
+    }
+
+    if (this.formType === 'Abandoned Vehicle Complaint'
+      || this.formType === 'Pothole in Street'
+      || this.formType === 'Garbage Cart Black Maintenance/Replacement'
+      || this.formType === 'Graffiti Removal') {
+      this.form.push(this.ssaForm);
+      this.megaform.ssa = this.ssaForm.value;
     }
 
     if (this.formType === 'Tree Debris'
       || this.formType === 'Tree Trim') {
       this.form.push(this.treeLocationForm);
+      console.log('booShakalaka');
+      this.megaform.treeDebrisTrimsInfo = this.treeLocationForm.value;
     }
 
-    if (this.submitForm.valid) {
+    if (this.formType === 'Abandoned Vehicle Complaint') {
+      this.megaform.abandonedVehiclesInfo = this.abandonedVehiclesForm.value;
+    }
+    if (this.formType === 'Pothole in Street') {
+      this.megaform.potholesReportedInfo = this.potholesForm.value;
+    }
+    if (this.formType === 'Rodent Baiting/Rat Complaint') {
+      this.megaform.rodentBaitingInfo = this.rodentForm.value;
+    }
+    if (this.formType === 'Garbage Cart Black Maintenance/Replacement') {
+      this.megaform.garbageCartsInfo = this.garbageCartForm.value;
+    }
+    if (this.formType === 'Graffiti Removal') {
+      this.megaform.graffitiRemoval = this.graffitiForm.value;
+    }
+    if (this.formType === 'Sanitation Code Violation') {
+      this.megaform.sanitationComplaintsInfo = this.sanitationViolationForm.value;
+    }
+
+    if (this.submitForm.valid) { //check again
       console.log(' is valid ');
-      this.postNewIncident();
+      // this.postNewIncident();
     } else {
       console.log(' is invalid ');
       this.errorMessage = 'The fields are required';
@@ -232,7 +275,7 @@ export class NewIncidentComponent implements OnInit {
 
     this.postNewIncident();
 
-    console.log(this.types);
+    // console.log(this.types);
   }
 
   onTypeSelect(event) {
@@ -243,6 +286,7 @@ export class NewIncidentComponent implements OnInit {
       || this.formType === 'Garbage Cart Black Maintenance/Replacement'
       || this.formType === 'Graffiti Removal') {
       this.ssaForm = this.fb.group(this.ssaDefinition);
+      // this.megaform.ssa = this.fb.group(this.ssaDefinition);
     }
     if (this.formType === 'Abandoned Vehicle Complaint'
       || this.formType === 'Pothole in Street'
@@ -250,34 +294,47 @@ export class NewIncidentComponent implements OnInit {
       || this.formType === 'Tree Debris'
       || this.formType === 'Garbage Cart Black Maintenance/Replacement') {
       this.curActivityActionForm = this.fb.group(this.activity_actionsDefinition);
+      // this.megaform.currentActivityMostRecentAction = this.fb.group(this.activity_actionsDefinition);
     }
     if (this.formType === 'Tree Debris'
       || this.formType === 'Tree Trim') {
       this.treeLocationForm = this.fb.group(this.tree_debris_trims_location);
+      // this.megaform.treeDebrisTrimsInfo = this.fb.group(this.tree_debris_trims_location);
     }
     if (this.formType === 'Abandoned Vehicle Complaint') {
       this.abandonedVehiclesForm = this.fb.group(this.abandoned_vehicles);
+      // this.megaform.abandonedVehiclesInfo = this.fb.group(this.abandoned_vehicles);
     }
     if (this.formType === 'Pothole in Street') {
       this.potholesForm = this.fb.group(this.potholes_reported);
+      // this.megaform.potholesReportedInfo = this.fb.group(this.potholes_reported);
     }
     if (this.formType === 'Rodent Baiting/Rat Complaint') {
       this.rodentForm = this.fb.group(this.rodent_baiting);
+      // this.megaform.rodentBaitingInfo = this.fb.group(this.rodent_baiting);
     }
     if (this.formType === 'Garbage Cart Black Maintenance/Replacement') {
       this.garbageCartForm = this.fb.group(this.garbage_carts);
+      // this.megaform.garbageCartsInfo = this.fb.group(this.garbage_carts);
     }
     if (this.formType === 'Graffiti Removal') {
       this.graffitiForm = this.fb.group(this.graffiti_removal);
+      // this.megaform.graffitiRemoval = this.fb.group(this.graffiti_removal);
     }
     if (this.formType === 'Sanitation Code Violation') {
       this.sanitationViolationForm  = this.fb.group(this.sanitation_complaints);
+      // this.megaform.sanitationComplaintsInfo = this.fb.group(this.sanitation_complaints);
     }
   }
 
   postNewIncident() {
+
+    // this.megaform.chicagoRequest = JSON.stringify(this.newIncidentForm.value);
+    // this.megaform.chicagoRequest.patchValue(this.newIncidentForm.value);
+    // console.log(this.megaform.chicagoRequest.value);
+
     // this.requestService.postNewIncident(JSON.stringify(this.submitForm.value)).subscribe(
-    this.requestService.postNewIncident(this.submitForm.value).subscribe(
+    this.requestService.postNewIncident(this.megaform).subscribe(
       _ => {},
       error => this.errorMessage = <any> error
     );
