@@ -75,7 +75,7 @@ export class SearchForIncidentsComponent implements OnInit {
   }
 
   last() {
-    this.start = (Math.floor(this.results.length / this.step ) - 1) * this.step;
+    this.start = Math.floor(this.results.length / this.step ) * this.step;
   }
 
 }

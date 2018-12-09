@@ -42,6 +42,7 @@
           <th class="uk-text-center">zipCode</th>
           <th class="uk-text-center">request type</th>
           <th class="uk-text-center">date</th>
+          <th class="uk-text-center">status</th>
         </tr>
         </thead>
         <tbody>
@@ -50,6 +51,7 @@
           <td>{{result.zipcode}}</td>
           <td>{{result.typeofservicerequest}}</td>
           <td>{{result.creationdate | date: 'medium'}}</td>
+          <td>{{result.status}}</td>
         </tr>
         </tbody>
       </table>
@@ -67,7 +69,7 @@
       <div class="uk-position-center" uk-spinner="ratio: 3"></div>
     </div>
 
-    <div class="uk-margin-top" *ngIf="results && getViewList().length === 0">
+    <div class="uk-margin-top uk-width-1-1@m" *ngIf="results && getViewList().length === 0">
       <span>No results</span>
     </div>
 
