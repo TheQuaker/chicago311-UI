@@ -11,6 +11,7 @@ import {StoredFunction3} from '../../../domain/stored-function-3';
 
 export class ZipCodeTopRequestComponent implements OnInit {
   requestForm: FormGroup;
+  public errorMessage: string;
 
   public results: StoredFunction3[];
   public viewResults: StoredFunction3[];
@@ -34,6 +35,7 @@ export class ZipCodeTopRequestComponent implements OnInit {
   }
 
   submitRequest() {
+    this.errorMessage = '';
     if (this.requestForm.valid) {
       this.loading = true;
       this.requestService.getZipTopRequests(this.formatDate(this.requestForm.get('date').value)).subscribe(
@@ -41,7 +43,11 @@ export class ZipCodeTopRequestComponent implements OnInit {
           this.results = res;
           this.loading = false;
           },
-        error => console.log(error)
+        error => {
+          this.errorMessage = <any>error;
+          this.loading = false;
+          console.log(error);
+        },
       );
     }
   }

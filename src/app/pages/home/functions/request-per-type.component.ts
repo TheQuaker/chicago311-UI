@@ -11,6 +11,7 @@ import {StoredFunction1} from '../../../domain/stored-function-1';
 
 export class RequestPerTypeComponent implements OnInit {
   requestForm: FormGroup;
+  public errorMessage: string;
   public results: StoredFunction1[];
   public loading = false;
 
@@ -22,10 +23,10 @@ export class RequestPerTypeComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private requestService: RequestsService
-  ) {
-  }
+  ) {}
 
   ngOnInit(): void {
+
     this.requestForm = this.fb.group(this.formDefinition);
   }
 
@@ -39,7 +40,11 @@ export class RequestPerTypeComponent implements OnInit {
           this.results = res;
           this.loading = false;
         },
-        error => console.log(error),
+        error => {
+          this.errorMessage = <any>error;
+          this.loading = false;
+          console.log(error);
+          },
         // () =>
       );
     }

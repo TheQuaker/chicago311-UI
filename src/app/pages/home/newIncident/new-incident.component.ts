@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {RequestsService} from '../../../services/requests.service';
+import {Type} from '../../../domain/type';
 
 
 declare var ol: any;
@@ -14,9 +16,14 @@ export class NewIncidentComponent implements OnInit {
 
   map: any;
 
-  data: any;
-
+  submitForm = this.fb.array([]);
+  public errorMessage: string;
+  public types: Type[];
+  public formType: string;
   public newIncidentForm: FormGroup;
+  public ssaForm: FormGroup;
+  public curActivityActionForm: FormGroup;
+  public treeLocationForm: FormGroup;
 
   formDefinition = {
     TypeofServiceRequest: ['', Validators.required],
@@ -29,15 +36,64 @@ export class NewIncidentComponent implements OnInit {
     CommunityArea: ['', Validators.required],
     Latitude: ['', Validators.required],
     Longitude: ['', Validators.required],
-    Location: ['']
+    Location: this.fb.group({
+      latitude: [''],
+      longitude: ['']
+    })
+  };
+
+  ssaDefinition = {
+    ssa: ''
+  };
+
+  activity_actionsDefinition = {
+    CurrentActivity: '',
+    MostRecentAction: ''
+  };
+
+  abandoned_vehicles = {
+    licenseplate: '',
+    vehiclemakemodel: '',
+    vehiclecolor: '',
+    daysparked: ''
+  };
+
+  garbage_carts = {
+    NumberofBlackCartsDelivered: ''
+  };
+
+  graffiti_removal = {
+    Surface: '',
+    GraffitiLocation: ''
+  };
+
+  potholes_reported = {
+    PotholesFilledOnBlock: ''
+  };
+
+  rodent_baiting = {
+    PremisesBaited: '',
+    PremiseswithGarbage: '',
+    PremiseswithRats: ''
+  };
+
+  sanitation_complaints = {
+    NatureofCodeViolation: ''
+  };
+
+  tree_debris_trims_location = {
+    location: ''
   };
 
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private requestService: RequestsService
   ) {}
 
   ngOnInit() {
+    this.getTypes();
     this.newIncidentForm = this.fb.group(this.formDefinition);
+
 
     const mousePositionControl = new ol.control.MousePosition({
       coordinateFormat: ol.coordinate.createStringXY(4),
@@ -95,7 +151,7 @@ export class NewIncidentComponent implements OnInit {
       markerSource.addFeature(iconFeature);
     }
 
-    this.data = this.map.on('click', function (args) {
+    this.map.on('click', function (args) {
       // console.log(args.coordinate);
       const lonlat = ol.proj.transform(args.coordinate, 'EPSG:3857', 'EPSG:4326');
       console.log(lonlat);
@@ -105,16 +161,97 @@ export class NewIncidentComponent implements OnInit {
       const lon = lonlat[0];
       const lat = lonlat[1];
       // alert(`lat: ${lat} long: ${lon}`);
-      (<HTMLInputElement>document.getElementById('Longitude')).value = lon;
-      (<HTMLInputElement>document.getElementById('Latitude')).value = lat;
+      // (<HTMLInputElement>document.getElementById('Longitude')).value = lon;
+      // (<HTMLInputElement>document.getElementById('Latitude')).value = lat;
+
+      document.getElementById('Xcoordinate').innerText = args.coordinate[0];
+      document.getElementById('Ycoordinate').innerText = args.coordinate[1];
+      document.getElementById('Longitude').innerText = lonlat[0];
+      document.getElementById('Latitude').innerText = lonlat[1];
 
       addMarker(lon, lat);
-      return lonlat;
     });
   }
 
+  getTypes() {
+    this.requestService.getTypeOfRequests().subscribe(
+      res => this.types = res,
+      error => this.errorMessage = <any>error
+    );
+  }
+
   submitIncident() {
-    console.log(this.data);
+    this.submitForm = this.fb.array([]);
+    this.errorMessage = '';
+
+    this.newIncidentForm.get('Xcoordinate').setValue(document.getElementById('Xcoordinate').innerText);
+    this.newIncidentForm.get('Ycoordinate').setValue(document.getElementById('Ycoordinate').innerText);
+    this.newIncidentForm.get('Longitude').setValue(document.getElementById('Longitude').innerText);
+    this.newIncidentForm.get('Latitude').setValue(document.getElementById('Latitude').innerText);
+    this.newIncidentForm.patchValue({
+      Location: {
+        latitude: this.newIncidentForm.get('Latitude').value,
+        longitude: this.newIncidentForm.get('Longitude').value
+      }
+    });
+
+    this.form.push(this.newIncidentForm);
+
+    if (this.formType === 'Street Lights - All/Out'
+      || this.formType === 'Street Light Out'
+      || this.formType === 'Street Light Out'
+    ) {}
+
+    if (this.formType === 'Abandoned Vehicle Complaint'
+      || this.formType === 'Pothole in Street'
+      || this.formType === 'Rodent Baiting/Rat Complaint'
+      || this.formType === 'Tree Debris'
+      || this.formType === 'Garbage Cart Black Maintenance/Replacement') {
+      this.form.push(this.curActivityActionForm);
+    }
+
+    if (this.formType === 'Tree Debris'
+      || this.formType === 'Tree Trim') {
+      this.form.push(this.treeLocationForm);
+    }
+
+    this.postNewIncident();
+
+    console.log(this.types);
+  }
+
+  onTypeSelect(event) {
+    this.formType = event.target.value;
+    console.log(this.formType);
+    if (this.formType === 'Abandoned Vehicle Complaint'
+        || this.formType === 'Pothole in Street'
+        || this.formType === 'Garbage Cart Black Maintenance/Replacement'
+        || this.formType === 'Graffiti Removal') {
+      this.ssaForm = this.fb.group(this.ssaDefinition);
+    }
+    if (this.formType === 'Abandoned Vehicle Complaint'
+      || this.formType === 'Pothole in Street'
+      || this.formType === 'Rodent Baiting/Rat Complaint'
+      || this.formType === 'Tree Debris'
+      || this.formType === 'Garbage Cart Black Maintenance/Replacement') {
+      this.curActivityActionForm = this.fb.group(this.activity_actionsDefinition);
+    }
+    if (this.formType === 'Tree Debris'
+      || this.formType === 'Tree Trim') {
+      this.treeLocationForm = this.fb.group(this.tree_debris_trims_location);
+    }
+
+  }
+
+  postNewIncident() {
+    this.requestService.postNewIncident(this.submitForm).subscribe(
+      _ => {},
+      error => this.errorMessage = <any> error
+    );
+  }
+
+  get form() {
+    return this.submitForm as FormArray;
   }
 
   setCenter() {

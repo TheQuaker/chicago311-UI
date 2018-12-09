@@ -20,7 +20,6 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {}
 
   userNameClick() {
-    console.log('boom');
     if (this.name === 'login') {
       this.router.navigate(['/login']);
     } else {
@@ -32,7 +31,7 @@ export class AppComponent implements OnInit {
     if (this.action === 'logout') {
       this.authService.logout();
       this.name = null;
-      console.log('name = ' + this.name);
+      // console.log('name = ' + this.name);
       this.action = null;
       this.router.navigate(['/login']);
     }

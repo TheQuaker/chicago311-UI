@@ -3,6 +3,7 @@ import {HttpClient, HttpErrorResponse, HttpParams} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {throwError} from 'rxjs';
 import {catchError} from 'rxjs/operators';
+import {Type} from '../domain/type';
 import {StoredFunction1} from '../domain/stored-function-1';
 import {StoredFunction2} from '../domain/stored-function-2';
 import {StoredFunction3} from '../domain/stored-function-3';
@@ -14,10 +15,17 @@ import {StoredFunction3} from '../domain/stored-function-3';
 
 export class RequestsService {
   private url = environment.API_END_POINT + '/search';
+  private postUrl = environment.API_END_POINT + '/save/newincident';
 
   constructor(
     private http: HttpClient
   ) {}
+
+  getTypeOfRequests() {
+    return this.http.get<Type[]>(this.url + '/getTypeOfRequests').pipe(
+      catchError(this.handleError)
+    );
+  }
 
   getTypeTotalRequests(fromDate: string, toDate: string) {
     let params = new HttpParams();
@@ -45,6 +53,12 @@ export class RequestsService {
     params = params.append('atDate', date);
 
     return this.http.get<StoredFunction3[]>(this.url + '/getZipTopRequests', {params}).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  postNewIncident(data: any) {
+    return this.http.post(this.postUrl, data).pipe(
       catchError(this.handleError)
     );
   }

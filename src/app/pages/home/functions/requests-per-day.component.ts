@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {RequestsService} from '../../../services/requests.service';
 import {StoredFunction2} from '../../../domain/stored-function-2';
-import {StoredFunction3} from '../../../domain/stored-function-3';
+import {Type} from '../../../domain/type';
 
 @Component({
   selector: 'app-sf2',
@@ -11,6 +11,8 @@ import {StoredFunction3} from '../../../domain/stored-function-3';
 
 export class RequestsPerDayComponent implements OnInit {
   requestForm: FormGroup;
+  public errorMessage: string;
+  public types: Type[];
   public results: StoredFunction2[];
   public viewResults: StoredFunction2[];
   public loading = false;
@@ -30,6 +32,7 @@ export class RequestsPerDayComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.getTypes();
     this.requestForm = this.fb.group(this.formDefinition);
   }
 
@@ -44,11 +47,24 @@ export class RequestsPerDayComponent implements OnInit {
           this.results = res;
           this.loading = false;
         },
-        error => console.log(error)
+        error => {
+          this.errorMessage = <any>error;
+          this.loading = false;
+          console.log(error);
+        },
       );
     }
   }
 
+  getTypes() {
+    this.requestService.getTypeOfRequests().subscribe(
+      res => this.types = res,
+      error => this.errorMessage = <any>error,
+      () => {}
+    );
+  }
+
+  /** For pagination **/
   getViewList(): StoredFunction2[] {
     this.currentPage = Math.floor(this.start / this.step ) + 1;
     return this.viewResults = this.results.slice(this.start, this.start + this.step);

@@ -1,10 +1,21 @@
 <div class="uk-container">
-  <form [formGroup]="newIncidentForm" class="uk-form-stacked uk-grid ">
+
+  <div *ngIf="errorMessage" class="uk-align-center uk-width-1-3@m uk-alert uk-alert-danger">
+    <!--<button class="uk-alert-close" (click)="removeAlert()" uk-close></button>-->
+    <a class="uk-alert-close" uk-close></a>
+    <p>{{errorMessage}}</p>
+  </div>
+
+  <form *ngIf="types" [formGroup]="newIncidentForm" class="uk-form-stacked uk-grid ">
 
     <div class="uk-width-1-3@m">
       <label class="uk-form-label" for="TypeofServiceRequest">Request type:</label>
       <div class="uk-form-controls">
-        <input class="uk-input" id="TypeofServiceRequest" type="text" formControlName="TypeofServiceRequest">
+        <select class="uk-input" id="TypeofServiceRequest" formControlName="TypeofServiceRequest"
+                (change)="onTypeSelect($event)">
+          <option value="null" selected hidden>Select request type</option>
+          <option *ngFor="let type of types" [value]=type.type>{{type.type}}</option>
+        </select>
       </div>
     </div>
     <div class="uk-width-1-3@m">
@@ -16,41 +27,80 @@
     <div class="uk-width-1-3@m">
       <label class="uk-form-label" for="Ward">Ward</label>
       <div class="uk-form-controls">
-        <input class="uk-input" id="Ward" type="text" formControlName="Ward">
+        <input class="uk-input" id="Ward" type="number" formControlName="Ward">
       </div>
     </div>
     <div class="uk-width-1-3@m">
       <label class="uk-form-label" for="PoliceDistrict">PoliceDistrict</label>
       <div class="uk-form-controls">
-        <input class="uk-input" id="PoliceDistrict" type="text" formControlName="PoliceDistrict">
+        <input class="uk-input" id="PoliceDistrict" type="number" formControlName="PoliceDistrict">
       </div>
     </div>
     <div class="uk-width-1-3@m">
       <label class="uk-form-label" for="CommunityArea">CommunityArea</label>
       <div class="uk-form-controls">
-        <input class="uk-input" id="CommunityArea" type="text" formControlName="CommunityArea">
+        <input class="uk-input" id="CommunityArea" type="number" formControlName="CommunityArea">
       </div>
     </div>
     <div class="uk-width-1-3@m">
-      <label class="uk-form-label" for="Longitude">Longitude</label>
+      <label class="uk-form-label" for="lon">Longitude</label>
       <div class="uk-form-controls">
-        <input class="uk-input" id="Longitude" type="text" formControlName="Longitude">
+        <input class="uk-input" id="lon" type="text" formControlName="Longitude">
       </div>
     </div>
     <div class="uk-width-1-3@m">
-      <label class="uk-form-label" for="Latitude">Latitude</label>
+      <label class="uk-form-label" for="lat">Latitude</label>
       <div class="uk-form-controls">
-        <input class="uk-input" id="Latitude" type="text" formControlName="Latitude">
+        <input class="uk-input" id="lat" type="text" formControlName="Latitude">
       </div>
     </div>
+
+    <form *ngIf="formType === 'Tree Debris'"
+          [formGroup]="curActivityActionForm" class="uk-form-stacked uk-grid ">
+      <div class="uk-width-1-1@m">
+        <label class="uk-form-label" for="curActivity">Current Activity</label>
+        <div class="uk-form-controls">
+          <input class="uk-input" id="curActivity" type="text" formControlName="CurrentActivity">
+        </div>
+      </div>
+      <div class="uk-width-1-1@m">
+        <label class="uk-form-label" for="MostRecentAction">MostRecentAction</label>
+        <div class="uk-form-controls">
+          <input class="uk-input" id="MostRecentAction" type="text" formControlName="MostRecentAction">
+        </div>
+      </div>
+    </form>
+
+    <form *ngIf="formType === 'Tree Debris' || formType === 'Tree Trim'"
+          [formGroup]="treeLocationForm" class="uk-form-stacked uk-grid ">
+      <div class="uk-width-1-1@m">
+        <label class="uk-form-label" for="Location">Location</label>
+        <div class="uk-form-controls">
+          <input class="uk-input" id="Location" type="text" formControlName="location">
+        </div>
+      </div>
+    </form>
 
     <!--<label class="-left -right" for="endTime">End time:</label>-->
     <!--<input id="endTime" type="time" step="1" formControlName="endTime">-->
 
+    <div>
+      <button class="uk-button-primary uk-margin-top" (click)="submitIncident()">Search</button>
+    </div>
   </form>
-  <button class="uk-button-primary uk-margin-top" (click)="submitIncident()">Search</button>
 
 
   <div id="map" class="map uk-margin"></div>
 </div>
 {{newIncidentForm.value | json}}
+<div *ngIf="treeLocationForm" >
+  LOCATION
+{{treeLocationForm.value | json}}
+</div>
+test
+{{submitForm.value | json}}
+
+<div id="Xcoordinate" #Xcoordinate style="display: none"></div>
+<div id="Ycoordinate" #Ycoordinate style="display: none"></div>
+<div id="Latitude" #Latitude style="display: none"></div>
+<div id="Longitude" #Longitude style="display: none"></div>
