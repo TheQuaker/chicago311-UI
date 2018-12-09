@@ -44,10 +44,10 @@ export class NewIncidentComponent implements OnInit {
     CommunityArea: ['', Validators.required],
     Latitude: ['', Validators.required],
     Longitude: ['', Validators.required],
-    Location: this.fb.group({
-      latitude: [''],
-      longitude: ['']
-    })
+    // Location: this.fb.group({
+    //   latitude: [''],
+    //   longitude: ['']
+    // })
   };
 
   ssaDefinition = {

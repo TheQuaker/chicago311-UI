@@ -8,6 +8,7 @@ import {StoredFunction1} from '../domain/stored-function-1';
 import {StoredFunction2} from '../domain/stored-function-2';
 import {StoredFunction3} from '../domain/stored-function-3';
 import {NewIncident} from '../domain/new-incident';
+import {AddressZipResponce} from '../domain/address-zip-responce';
 
 
 @Injectable({
@@ -54,6 +55,16 @@ export class RequestsService {
     params = params.append('atDate', date);
 
     return this.http.get<StoredFunction3[]>(this.url + '/getZipTopRequests', {params}).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  getRequestsByZipcodeAndStreet(streetaddress: string, zipcode: string) {
+    let params = new HttpParams();
+    params = params.append('streetaddress', streetaddress);
+    params = params.append('zipcode', zipcode);
+
+    return this.http.get<AddressZipResponce[]>(this.url + '/getRequestsByZipcodeAndStreet', {params}).pipe(
       catchError(this.handleError)
     );
   }
