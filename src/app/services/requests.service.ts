@@ -58,6 +58,8 @@ export class RequestsService {
   }
 
   postNewIncident(data: any) {
+    console.log('wtf happens ');
+    console.log(data);
     return this.http.post(this.postUrl, data).pipe(
       catchError(this.handleError)
     );
